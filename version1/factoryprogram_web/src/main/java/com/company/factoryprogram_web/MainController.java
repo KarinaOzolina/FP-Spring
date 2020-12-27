@@ -5,7 +5,6 @@ import com.company.factoryprogram_web.data.PartRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class MainController {
@@ -17,9 +16,21 @@ public class MainController {
     }
 
     @GetMapping("")
-    public String index(Model model){
-        model.addAttribute("parts", repo.getParts());
+    public String index(){
+
         return "index";
+    }
+
+    @GetMapping("/factory")
+    public String factory(){
+
+        return "factory";
+    }
+
+    @GetMapping("/storage")
+    public String storage(){
+
+        return "storage";
     }
 
     @GetMapping("/chosen_configuration")
@@ -27,6 +38,7 @@ public class MainController {
 
         return "chosen_configuration";
     }
+
 
     @GetMapping("/confirmation")
     public String confirmation(){

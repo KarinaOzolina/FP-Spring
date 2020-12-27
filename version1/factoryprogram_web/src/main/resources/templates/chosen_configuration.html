@@ -20,11 +20,28 @@
                 </div>
                 <div class="modal-body">
                     <p>Modal body text goes here.</p>
+                    <div class="container">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Configuration C1</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tr th:each="configuration: ${configurations}">
+                                <td th:text="${chosenConfiguration.id}"/>
+                                <td th:text="${chosenConfiguration.c1}"/>
+                            </tr>
+                        </table>
+                        </table>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-secondary" th:href="${'/'}" role="button">Back</a>
+                    <a class="btn btn-secondary" th:href="${'/factory'}" role="button">Back</a>
                     <a class="btn btn-primary" th:href="${'/confirmation'}" role="button">Confirm</a>
-<!--                    <button type="button" class="btn btn-primary">Confirm</button>-->
+                    <!--                    <button type="button" class="btn btn-primary">Confirm</button>-->
                 </div>
             </div>
         </div>

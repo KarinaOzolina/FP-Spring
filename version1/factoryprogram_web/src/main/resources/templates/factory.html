@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Factory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Humidifier</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>Litres</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        <tr>
+            <th scope="col">Zones</th>
+            <th scope="col">100</th>
+            <th scope="col">200</th>
+            <th scope="col">500</th>
+            <th scope="col">800</th>
+            <th scope="col">1000</th>
+        </tr>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1-4</th>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C1</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C2</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C4</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C7</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C11</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">5-8</th>
+            <td>
+                <div class="btn btn-secondary" role="button" disabled>X</div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C3</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C5</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C8</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C12</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">9-12</th>
+            <td>
+                <div class="btn btn-secondary" role="button" disabled>X</div>
+            </td>
+            <td>
+                <div class="btn btn-secondary" role="button" disabled>X</div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C6</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C9</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C13</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">13-16</th>
+            <td>
+                <div class="btn btn-secondary" role="button" disabled>X</div>
+            </td>
+            <td>
+                <div class="btn btn-secondary" role="button" disabled>X</div>
+            </td>
+            <td>
+                <div class="btn btn-secondary" role="button" disabled>X</div>
+            </td>
+            <td>
+                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C10</a>
+            </td>
+            <td>
+                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C14</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="container">
+        <a class="btn btn-secondary" th:href="${'/'}" role="button">Back</a>
+    </div>
+</div>
+
+</body>
+</html>

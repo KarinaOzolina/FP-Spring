@@ -50,4 +50,16 @@ public class PartRepository {
         return new ArrayList<>();
     }
 
+    // doesn't work
+    public Iterable<Configuration> getConfigurations() {
+        var session = factory.openSession();
+        try {
+            return session.createQuery("FROM Configuration").list();
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<>();
+    }
 }
