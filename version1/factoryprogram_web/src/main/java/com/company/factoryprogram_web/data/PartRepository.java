@@ -4,6 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PartRepository {
 
@@ -35,5 +36,18 @@ public class PartRepository {
         return new ArrayList<>();
     }
 
+
+    // doesn't work
+    public Iterable<Object> quantityForChosenConf() {
+        var session = factory.openSession();
+        try {
+            return session.createQuery("FROM Configuration").list();
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<>();
+    }
 
 }
