@@ -17,13 +17,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Confirmation</h5>
-<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+                    <!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
                 </div>
                 <div class="modal-body">
-                    <p>Your order has been confirmed.</p>
+                    <p>Order parts from storage?</p>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" th:href="${'/'}" role="button">Back</a>
+                    <a class="btn btn-secondary" th:href="${'/factory'}" role="button">Back</a>
+                    <form method="get" action="/confirmation">
+                        <input class="btn btn-success" type="submit" value="Confirm">
+                    </form>
                 </div>
             </div>
         </div>

@@ -46,4 +46,9 @@ public class Configuration{
     private int c13;
     @Column(name = "c_c14")
     private int c14;
+
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name="part_id", referencedColumnName = "id", nullable = true)
+    private Part part;
+
 }
