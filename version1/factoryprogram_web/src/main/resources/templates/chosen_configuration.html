@@ -9,38 +9,77 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
+
 </head>
 <body>
+
+<!--<div class="bd-example">-->
+<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">-->
+<!--        Launch demo modal-->
+<!--    </button>-->
+<!--</div>-->
+<!--<div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">-->
+<!--    <div class="modal-dialog modal-dialog-scrollable">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalScrollableTitle" th:text="${'List of parts required for ' + configuration.getConfigurationName() + ' configuration'}"></h5>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <table class="table">-->
+<!--                    <tr>-->
+<!--                        <th scope="col">Id</th>-->
+<!--                        <th scope="col">Part name</th>-->
+<!--                        <th scope="col">REF</th>-->
+<!--                        <th scope="col">Quantity</th>-->
+<!--                    </tr>-->
+
+<!--                    <tr th:each="item: ${requiredParts}">-->
+<!--                        <td scope="row" th:text="${item.getId()}"/>-->
+<!--                        <td scope="row" th:text="${item.getPartName()}"/>-->
+<!--                        <td scope="row" th:text="${item.getPartRef()}"/>-->
+<!--                        <td scope="row" th:text="${item.getRequiredQty()}"/>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <a class="btn btn-secondary" th:href="${'/factory'}" role="button">Back</a>-->
+<!--                <form method="get" th:action="${'/confirmation/' + configuration.getId()}">-->
+<!--                    <input class="btn btn-success" type="submit" value="Check availability">-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
 
 <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" th:text="${title}"></h5>
+
+            <h5 class="modal-title"
+                th:text="${'List of parts required for ' + configuration.getConfigurationName() + ' configuration'}"></h5>
         </div>
         <div class="modal-body">
-            <p>List of parts required for this configuration</p>
-                <table class="table">
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Part name</th>
-                        <th scope="col">Part ref. number</th>
-                        <th scope="col">Quantity</th>
-                    </tr>
 
-                    <tr th:each="configuration: ${configurations}">
-                        <td scope="row" th:text="${configuration.getId()}"/>
-                        <td scope="row" th:text="${configuration.getPart().getPartName()}"/>
-                        <td scope="row" th:text="${configuration.getPart().getPartRefNumber()}"/>
-                        <td scope="row" th:text="${configuration.getC1()}"/>
+            <table class="table">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Part name</th>
+                    <th scope="col">REF</th>
+                    <th scope="col">Quantity</th>
+                </tr>
 
-                    </tr>
-                </table>
-
+                <tr th:each="item: ${requiredParts}">
+                    <td scope="row" th:text="${item.getId()}"/>
+                    <td scope="row" th:text="${item.getPartName()}"/>
+                    <td scope="row" th:text="${item.getPartRef()}"/>
+                    <td scope="row" th:text="${item.getRequiredQty()}"/>
+                </tr>
+            </table>
         </div>
         <div class="modal-footer">
             <a class="btn btn-secondary" th:href="${'/factory'}" role="button">Back</a>
-<!--            <a class="btn btn-primary" th:href="${'/confirmation'}" role="button">Confirm</a>-->
-            <form method="get" action="/confirmation">
+            <form method="get" th:action="${'/confirmation/' + configuration.getId()}">
                 <input class="btn btn-success" type="submit" value="Check availability">
             </form>
         </div>

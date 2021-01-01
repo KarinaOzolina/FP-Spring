@@ -18,9 +18,9 @@ public class Storage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "s_ref")
-    private int RefNumber;
-    @Column(name = "s_avail_quant")
-    private int AvailQuant;
+    @Column(name = "part_id")
+    private int partId;
+    @Column(name = "avail_qty")
+    private int availQty;
 
 }

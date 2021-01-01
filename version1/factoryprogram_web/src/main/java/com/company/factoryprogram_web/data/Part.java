@@ -17,12 +17,13 @@ public class Part {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "p_name")
+
+    @Column(name = "name")
     private String partName;
-    @Column(name = "p_type")
+    @Column(name = "type")
     private String partType;
-    @Column(name = "p_ref")
+    @Column(name = "ref")
     private int partRefNumber;
-    @Column(name = "p_price")
+    @Column(name = "price")
     private double partPrice;
 }

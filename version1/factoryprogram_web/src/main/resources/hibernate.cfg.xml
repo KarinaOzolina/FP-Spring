@@ -11,7 +11,7 @@
         </property>
         <!-- Assume test is the database name -->
         <property name="hibernate.connection.url">
-            jdbc:mysql://localhost:3306/parts
+            jdbc:mysql://localhost:3306/data_parts
         </property>
         <property name="hibernate.connection.username">
             part

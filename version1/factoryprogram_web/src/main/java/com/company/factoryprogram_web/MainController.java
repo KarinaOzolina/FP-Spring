@@ -1,6 +1,7 @@
 package com.company.factoryprogram_web;
 
 
+import com.company.factoryprogram_web.data.DataManager;
 import com.company.factoryprogram_web.data.PartRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +24,14 @@ public class MainController {
     }
 
     @GetMapping("/factory")
-    public String factory() {
-
+    public String factory(Model model) {
+        model.addAttribute("configurations", repo.getConfigurations());
         return "factory";
+    }
+
+    @GetMapping("/factory_temporary")
+    public String factory() {
+        return "factory_temporary";
     }
 
     @GetMapping("/storage")
@@ -34,22 +40,40 @@ public class MainController {
         return "storage";
     }
 
-    @GetMapping("/chosen_configuration")
-    public String chosenConfiguration(Model model) {
-        var items = repo.getConfigurations();
+//    @GetMapping("/chosen_configuration")
+//    public String chosenConfiguration(@PathVariable int id, Model model) {
+//        var items = repo.getParts();
+//        model.addAttribute("configuration", repo.getConfiguration(id));
+//
+//        model.addAttribute("title", "List of parts required for: " + configuration.getConfigurationName());
+//        model.addAttribute("parts", items);
+//        return "chosen_configuration";
+//    }
 
-        model.addAttribute("title", "Configuration: C1");
-        model.addAttribute("configurations", items);
+    @GetMapping("/chosen_configuration/{id}")
+    public String chosenConfiguration(@PathVariable int id, Model model) {
+
+        model.addAttribute("configuration", repo.getConfiguration(id));
+        var dataManager = new DataManager();
+        model.addAttribute("requiredParts", dataManager.getRequiredParts(id));
         return "chosen_configuration";
     }
 
-    @GetMapping("/confirmation")
-    public String confirmation() {
 
+//    @GetMapping("/confirmation")
+//    public String confirmation() {
+//
+////        repo.compareArrays();
+//
+//        return "confirmation";
+//    }
+
+    @GetMapping("/confirmation/{id}")
+    public String chosenConfigurationConfirmation(@PathVariable int id, Model model) {
+
+        model.addAttribute("configuration", repo.getConfiguration(id));
         return "confirmation";
     }
-
-
 
 
 }
