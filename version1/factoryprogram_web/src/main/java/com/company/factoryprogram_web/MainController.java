@@ -19,7 +19,6 @@ public class MainController {
 
     @GetMapping("")
     public String index() {
-
         return "index";
     }
 
@@ -29,6 +28,7 @@ public class MainController {
         return "factory";
     }
 
+
     @GetMapping("/factory_temporary")
     public String factory() {
         return "factory_temporary";
@@ -36,19 +36,8 @@ public class MainController {
 
     @GetMapping("/storage")
     public String storage() {
-
         return "storage";
     }
-
-//    @GetMapping("/chosen_configuration")
-//    public String chosenConfiguration(@PathVariable int id, Model model) {
-//        var items = repo.getParts();
-//        model.addAttribute("configuration", repo.getConfiguration(id));
-//
-//        model.addAttribute("title", "List of parts required for: " + configuration.getConfigurationName());
-//        model.addAttribute("parts", items);
-//        return "chosen_configuration";
-//    }
 
     @GetMapping("/chosen_configuration/{id}")
     public String chosenConfiguration(@PathVariable int id, Model model) {
@@ -59,19 +48,12 @@ public class MainController {
         return "chosen_configuration";
     }
 
-
-//    @GetMapping("/confirmation")
-//    public String confirmation() {
-//
-////        repo.compareArrays();
-//
-//        return "confirmation";
-//    }
-
     @GetMapping("/confirmation/{id}")
     public String chosenConfigurationConfirmation(@PathVariable int id, Model model) {
-
         model.addAttribute("configuration", repo.getConfiguration(id));
+        var dataManager = new DataManager();
+        model.addAttribute("availableParts", dataManager.getRequiredAndAvailableParts(id));
+        model.addAttribute("availability", dataManager.checkAvailability(id));
         return "confirmation";
     }
 

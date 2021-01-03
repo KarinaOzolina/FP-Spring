@@ -10,4 +10,6 @@ public class ConfigurationPartsId implements Serializable {
     private int id;
     private int configuration;
     private int part;
+    private int storage;
+
 }

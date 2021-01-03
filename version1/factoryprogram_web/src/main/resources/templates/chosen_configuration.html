@@ -18,6 +18,7 @@
 <!--        Launch demo modal-->
 <!--    </button>-->
 <!--</div>-->
+
 <!--<div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">-->
 <!--    <div class="modal-dialog modal-dialog-scrollable">-->
 <!--        <div class="modal-content">-->
@@ -66,7 +67,7 @@
                     <th scope="col">Id</th>
                     <th scope="col">Part name</th>
                     <th scope="col">REF</th>
-                    <th scope="col">Quantity</th>
+                    <th scope="col">Required quantity</th>
                 </tr>
 
                 <tr th:each="item: ${requiredParts}">
@@ -79,9 +80,19 @@
         </div>
         <div class="modal-footer">
             <a class="btn btn-secondary" th:href="${'/factory'}" role="button">Back</a>
+<!--            <form name="comparisonResult" method="get" th:action="${'/confirmation/' + configuration.getId()}">-->
+<!--                <input class="btn btn-success" type="submit" name ="checkAvailability" value="Check availability">-->
+<!--            </form>-->
+
             <form method="get" th:action="${'/confirmation/' + configuration.getId()}">
                 <input class="btn btn-success" type="submit" value="Check availability">
             </form>
+
+<!--            <form method="get" th:action="${'/confirmation'}">-->
+<!--                <input class="btn btn-success" type="submit" value="Check availability">-->
+<!--            </form>-->
+
+
         </div>
     </div>
 </div>

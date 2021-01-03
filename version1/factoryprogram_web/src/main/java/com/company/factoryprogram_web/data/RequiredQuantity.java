@@ -22,10 +22,6 @@ public class RequiredQuantity {
     @Column(name = "id")
     private int id;
 
-//    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-//    @JoinColumn(name="part_id", referencedColumnName = "id")
-//    private Part part;
-
     @Id
     @ManyToOne(targetEntity = Configuration.class, fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "configuration_id", referencedColumnName = "id")
@@ -35,6 +31,12 @@ public class RequiredQuantity {
     @ManyToOne(targetEntity = Part.class, fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "part_id", referencedColumnName = "id")
     private Part part;
+
+    @Id
+    @MapsId(value = "part_id")
+    @ManyToOne(targetEntity = Storage.class, fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "part_id", referencedColumnName = "id")
+    private Storage storage;
 
     @Column(name = "qty_req")
     private int qtyRequired;

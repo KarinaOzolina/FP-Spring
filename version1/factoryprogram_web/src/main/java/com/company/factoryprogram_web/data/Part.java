@@ -26,4 +26,8 @@ public class Part {
     private int partRefNumber;
     @Column(name = "price")
     private double partPrice;
+
+//    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+//    @JoinColumn(name="id", referencedColumnName = "part_id")
+//    private Storage storage;
 }

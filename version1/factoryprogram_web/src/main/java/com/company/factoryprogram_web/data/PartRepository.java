@@ -4,7 +4,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PartRepository {
 
@@ -61,11 +60,11 @@ public class PartRepository {
         return null;
     }
 
-    public Iterable<RequiredQuantity> getConfigurationQuantity(int configurationId) {
+    // Returns required quantity of parts for chosen configuration
+    public Iterable<RequiredQuantity> getRequiredQuantityForConfiguration(int configurationId) {
         var session = factory.openSession();
 
         try {
-//            return session.createQuery("FROM RequiredQuantity").list();
             var sql = "FROM RequiredQuantity where configuration_id = :confId";
             var query = session.createQuery(sql);
             query.setParameter("confId", configurationId);
@@ -79,38 +78,54 @@ public class PartRepository {
         return new ArrayList<>();
     }
 
-//    public Iterable<Storage> getAvailableQuantityInStorage(int partId) {
-//        var session = factory.openSession();
-//
-//        try {
-//            var sql = "FROM Storage where part_id = :partId";
-//            var query = session.createQuery(sql);
-//            query.setParameter("partId", partId);
-//            var result = query.list();
-//            return result;
-//        } catch (HibernateException exception) {
-//            System.err.println(exception);
-//        } finally {
-//            session.close();
-//        }
-//        return new ArrayList<>();
-//    }
+    public Iterable<RequiredQuantity> getAvailableQuantity(int configurationId) {
+        var session = factory.openSession();
 
-//
-//    public void compareArrays(int configurationId, int partId) {
-//        var qty = getConfigurationQuantity(configurationId);
-//        var availQty = getAvailableQuantityInStorage(partId);
-//
-//        for (int i = 0; i < availQty.size(); i++) {
-//            if (availQty.get(i) < qty.get(i)) {
-//                System.out.println("Not enough");
-//            } else {
-//                System.out.println("Enough");
-//            }
-//        }
-//    }
+        try {
+            var sql = "FROM RequiredQuantity where configuration_id = :confId";
+            var query = session.createQuery(sql);
+            query.setParameter("confId", configurationId);
+            var result = query.list();
+            return result;
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<>();
+    }
 
+    public Iterable<Object> getAvailabilityOfParts(int configurationId) {
+        var availQty = getAvailableQuantity(configurationId);
+        var requiredQty = getRequiredQuantityForConfiguration(configurationId);
 
+        ArrayList<Integer> resultAvailQuantity = new ArrayList<>();
 
+        for (var i : availQty) {
+            int qty = i.getStorage().getAvailQty();
+            resultAvailQuantity.add(qty);
+        }
+
+        ArrayList<Integer> requiredQuantity = new ArrayList<>();
+
+        for (var i : requiredQty) {
+            int qty = i.getQtyRequired();
+            requiredQuantity.add(qty);
+        }
+
+        Object result;
+        ArrayList<Object> resultArray = new ArrayList<>();
+
+        for (int i = 0; i < resultAvailQuantity.size(); i++) {
+            if (resultAvailQuantity.get(i) < requiredQuantity.get(i)) {
+                result = "Not enough";
+
+            } else {
+                result = "Enough";
+            }
+            resultArray.add(result);
+        }
+        return resultArray;
+    }
 
 }

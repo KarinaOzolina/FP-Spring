@@ -13,104 +13,25 @@
 <body>
 
 <div class="container">
-    <h1>Humidifier</h1>
+    <br>
+    <br>
+    <h3>Configurations of humidifiers</h3>
+    <br>
     <table class="table">
         <thead>
-<!--        <tr>-->
-<!--            <th>&nbsp;</th>-->
-<!--            <th>&nbsp;</th>-->
-<!--            <th>&nbsp;</th>-->
-<!--            <th>Litres</th>-->
-<!--            <th>&nbsp;</th>-->
-<!--            <th>&nbsp;</th>-->
         <tr>
-            <th scope="col">Configuration</th>
-<!--            <th scope="col">Zones</th>-->
-<!--            <th scope="col">100</th>-->
-<!--            <th scope="col">200</th>-->
-<!--            <th scope="col">500</th>-->
-<!--            <th scope="col">800</th>-->
-<!--            <th scope="col">1000</th>-->
-<!--        </tr>-->
+            <th></th>
         </tr>
         </thead>
+
         <tbody>
-        <tr>
         <tr th:each="configuration: ${configurations}">
-<!--            <th scope="row">1-4</th>-->
-            <td>
-                <a class="btn btn-outline-success" th:href="${'/chosen_configuration/' + configuration.getId()}"
-                   th:text="${configuration.getConfigurationName()}" role="button"></a>
-            </td>
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C2</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C4</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C7</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C11</a>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <th scope="row">5-8</th>-->
-<!--            <td>-->
-<!--                <div class="btn btn-secondary" role="button" disabled>X</div>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C3</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C5</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C8</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C12</a>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <th scope="row">9-12</th>-->
-<!--            <td>-->
-<!--                <div class="btn btn-secondary" role="button" disabled>X</div>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <div class="btn btn-secondary" role="button" disabled>X</div>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C6</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C9</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C13</a>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <th scope="row">13-16</th>-->
-<!--            <td>-->
-<!--                <div class="btn btn-secondary" role="button" disabled>X</div>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <div class="btn btn-secondary" role="button" disabled>X</div>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <div class="btn btn-secondary" role="button" disabled>X</div>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C10</a>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="btn btn-outline-success" th:href="${'/chosen_configuration'}" role="button">C14</a>-->
-<!--            </td>-->
+            <a class="btn btn-outline-success" th:href="${'/chosen_configuration/' + configuration.getId()}"
+               th:text="${configuration.getConfigurationName()}" role="button"></a>
         </tr>
         </tbody>
     </table>
+
     <div class="container">
         <a class="btn btn-secondary" th:href="${'/'}" role="button">Back</a>
     </div>

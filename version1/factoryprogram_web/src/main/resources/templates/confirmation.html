@@ -16,31 +16,46 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirmation</h5>
-                    <!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+                    <h5 class="modal-title"
+                        th:text="${'Availability of parts for ' + configuration.getConfigurationName() + ' configuration'}"></h5>
+
                 </div>
                 <div class="modal-body">
-                    <p>Order parts from storage?</p>
-<!--                    <table class="table">-->
-<!--                        <tr>-->
-<!--                            <th scope="col">REF</th>-->
+                    <table class="table">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Part name</th>
+                            <th scope="col">REF</th>
+<!--                            <th scope="col">Required quantity</th>-->
 <!--                            <th scope="col">Available quantity</th>-->
-<!--                        </tr>-->
-<!--                        -->
-<!--                        <tr th:each="item: ${requiredParts}">-->
-<!--                            <td scope="row" th:text="${item.getId()}"/>-->
-<!--                            <td scope="row" th:text="${item.getPartName()}"/>-->
-<!--                            <td scope="row" th:text="${item.getPartRef()}"/>-->
+                            <th scope="col">Result</th>
+                        </tr>
+
+                        <tr th:each="item: ${availableParts}">
+                            <td scope="row" th:text="${item.getId()}"/>
+                            <td scope="row" th:text="${item.getPartName()}"/>
+                            <td scope="row" th:text="${item.getPartRef()}"/>
 <!--                            <td scope="row" th:text="${item.getRequiredQty()}"/>-->
-<!--                        </tr>-->
-<!--                        -->
-<!--                    </table>-->
+<!--                            <td scope="row" th:text="${item.getAvailQty()}"/>-->
+                        </tr>
+
+                        <tr th:each="result: ${availability}">
+                            <td scope="row" th:text="${result.getCheckAvailability()}"/>
+                        </tr>
+
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <a class="btn btn-secondary" th:href="${'/factory'}" role="button">Back</a>
                     <form method="get" action="/confirmation">
-                        <input class="btn btn-success" type="submit" value="Confirm">
+                        <input class="btn btn-success" type="submit" value="Order parts from storage">
                     </form>
+
+<!--                    <div class="alert alert-warning alert-dismissible fade show" role="alert">-->
+<!--                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--                    </div>-->
+
                 </div>
             </div>
         </div>
