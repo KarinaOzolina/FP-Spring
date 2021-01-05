@@ -26,8 +26,6 @@
                             <th scope="col">Id</th>
                             <th scope="col">Part name</th>
                             <th scope="col">REF</th>
-<!--                            <th scope="col">Required quantity</th>-->
-<!--                            <th scope="col">Available quantity</th>-->
                             <th scope="col">Result</th>
                         </tr>
 
@@ -35,28 +33,41 @@
                             <td scope="row" th:text="${item.getId()}"/>
                             <td scope="row" th:text="${item.getPartName()}"/>
                             <td scope="row" th:text="${item.getPartRef()}"/>
-<!--                            <td scope="row" th:text="${item.getRequiredQty()}"/>-->
-<!--                            <td scope="row" th:text="${item.getAvailQty()}"/>-->
-                        </tr>
-
-                        <tr th:each="result: ${availability}">
-                            <td scope="row" th:text="${result.getCheckAvailability()}"/>
+                            <td scope="row" th:text="${item.getCheckAvailability()}"/>
                         </tr>
 
                     </table>
                 </div>
                 <div class="modal-footer">
                     <a class="btn btn-secondary" th:href="${'/factory'}" role="button">Back</a>
-                    <form method="get" action="/confirmation">
+
+<!--                    <form method="post" th:action="${'/confirmation/' + configuration.getId()}" name="updateDto">-->
+<!--                        <input class="btn btn-success" type="submit" value="Order parts from storage">-->
+<!--                    </form>-->
+
+                    <form name="updateAvailability" th:action="${'/confirmation/' + configuration.getId()}" method="post">
                         <input class="btn btn-success" type="submit" value="Order parts from storage">
+                        <input type="hidden" name="availQty">
+<!--                        <input type="hidden" th:value="${item.gePartId}" name="partId">-->
+<!--                        <input type="hidden" th:value="${item.getAvailQty}" name="availQty">-->
+
                     </form>
 
-<!--                    <div class="alert alert-warning alert-dismissible fade show" role="alert">-->
-<!--                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.-->
-<!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
-<!--                    </div>-->
-
                 </div>
+
+
+<!--                    <form th:action="${'/products/' + product.getId()}" method="post">-->
+<!--                        <input type="number" th:value="${item.getValue()}" name="testValue">-->
+<!--                        <input type="hidden" th:value="${item.getId()}" name="testId">-->
+<!--                        <input type="hidden" th:value="${item.getBacteriaId()}" name="bacteriaId">-->
+<!--                        <input type="hidden" th:value="${item.getBacteriaName()}" name="bacteriaName">-->
+<!--                        <input type="hidden" th:value="${item.getCategoryLimit()}" name="categoryLimit">-->
+<!--                        <input type="submit" value="Save">-->
+<!--                    </form>-->
+
+
+
+
             </div>
         </div>
     </div>

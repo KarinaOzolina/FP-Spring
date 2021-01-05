@@ -1,5 +1,6 @@
 package com.company.factoryprogram_web.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,14 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequiredAvailablePartsDto {
+public class OrderUpdateDto {
+    // private int requiredQty;
+    // private int partId;
     private int id;
-    private String partName;
-    private int partRef;
-    private int requiredQty;
     private int availQty;
-
-    private String checkAvailability;
-
-
 }

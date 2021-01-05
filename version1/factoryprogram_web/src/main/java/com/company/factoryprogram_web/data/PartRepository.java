@@ -1,9 +1,12 @@
 package com.company.factoryprogram_web.data;
 
+import lombok.NonNull;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PartRepository {
 
@@ -17,6 +20,7 @@ public class PartRepository {
                     addAnnotatedClass(Configuration.class).
                     addAnnotatedClass(Storage.class).
                     addAnnotatedClass(RequiredQuantity.class).
+                    addAnnotatedClass(UpdatedPartItem.class).
                     buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
@@ -59,6 +63,18 @@ public class PartRepository {
         }
         return null;
     }
+    public Storage getStorageData(int id) {
+        var session = factory.openSession();
+        try {
+            return session.get(Storage.class, id);
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
 
     // Returns required quantity of parts for chosen configuration
     public Iterable<RequiredQuantity> getRequiredQuantityForConfiguration(int configurationId) {
@@ -78,7 +94,44 @@ public class PartRepository {
         return new ArrayList<>();
     }
 
-    public Iterable<RequiredQuantity> getAvailableQuantity(int configurationId) {
+
+
+//    public Object orderParts(int configurationId) {
+//        var availQty = getAvailableQuantity(configurationId);
+//        var requiredQty = getRequiredQuantityForConfiguration(configurationId);
+//
+//        ArrayList<Integer> resultAvailQuantity = new ArrayList<>();
+//
+//        for (var i : availQty) {
+//            var qty = i.getStorage().getAvailQty();
+//            resultAvailQuantity.add(qty);
+//        }
+//
+//        ArrayList<Integer> requiredQuantity = new ArrayList<>();
+//
+//        for (var i : requiredQty) {
+//            int qty = i.getQtyRequired();
+//            requiredQuantity.add(qty);
+//        }
+//
+//        Object result;
+//        ArrayList<Object> resultArray = new ArrayList<>();
+//
+//        for (int i = 0; i < resultAvailQuantity.size(); i++) {
+//            var avail = resultAvailQuantity.get(i);
+//            var req = requiredQuantity.get(i);
+//
+//            if (avail >= req) {
+//                result = avail - req;
+//            } else {
+//                result = avail;
+//            }
+//            resultArray.add(result);
+//        }
+//        return resultArray;
+//    }
+
+    public List<Integer> getRequiredQuantity(int configurationId) {
         var session = factory.openSession();
 
         try {
@@ -95,37 +148,79 @@ public class PartRepository {
         return new ArrayList<>();
     }
 
-    public Iterable<Object> getAvailabilityOfParts(int configurationId) {
-        var availQty = getAvailableQuantity(configurationId);
-        var requiredQty = getRequiredQuantityForConfiguration(configurationId);
+    public List<Integer> getAvailableQty(int configurationId) {
+        var session = factory.openSession();
 
-        ArrayList<Integer> resultAvailQuantity = new ArrayList<>();
-
-        for (var i : availQty) {
-            int qty = i.getStorage().getAvailQty();
-            resultAvailQuantity.add(qty);
+        try {
+            var sql = "FROM RequiredQuantity where configuration_id = :confId";
+            var query = session.createQuery(sql);
+            query.setParameter("confId", configurationId);
+            var result = query.list();
+            return result;
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
         }
+        return new ArrayList<>();
+    }
 
-        ArrayList<Integer> requiredQuantity = new ArrayList<>();
 
-        for (var i : requiredQty) {
-            int qty = i.getQtyRequired();
-            requiredQuantity.add(qty);
+//    public List<Integer> orderParts(int configurationId) {
+//        var storageAvailQty = getAvailableQty(configurationId);
+//        var requiredQty = getRequiredQuantity(configurationId);
+//
+//
+//        Integer result;
+//        ArrayList<Integer> resultArray = new ArrayList<>();
+//
+//        for (int i = 0; i < requiredQty.size(); i++) {
+//
+//            if (storageAvailQty.get(i) >= requiredQty.get(i)) {
+//                result =  storageAvailQty.get(i) - requiredQty.get(i);
+//            } else {
+//                result =  storageAvailQty.get(i);
+//            }
+//            resultArray.add(result);
+//        }
+//        return resultArray;
+//    }
+
+    public Iterable<UpdatedPartItem> getAvailablePartsAfterUpdate(int configurationId) {
+        var session = factory.openSession();
+
+        try {
+            var sql = "FROM UpdatedPartItem where configuration_id = :confId";
+            var query = session.createQuery(sql);
+            query.setParameter("confId", configurationId);
+            var result = query.list();
+            return result;
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
         }
+        return new ArrayList<>();
+    }
 
-        Object result;
-        ArrayList<Object> resultArray = new ArrayList<>();
 
-        for (int i = 0; i < resultAvailQuantity.size(); i++) {
-            if (resultAvailQuantity.get(i) < requiredQuantity.get(i)) {
-                result = "Not enough";
 
-            } else {
-                result = "Enough";
+    public void update(@NonNull Object item) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.update(item);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if (tx != null) {
+                tx.rollback();
             }
-            resultArray.add(result);
+            System.err.println(exception);
+        } finally {
+            session.close();
         }
-        return resultArray;
     }
 
 }

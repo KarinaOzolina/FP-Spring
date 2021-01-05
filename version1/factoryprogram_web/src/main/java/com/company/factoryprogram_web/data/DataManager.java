@@ -1,5 +1,6 @@
 package com.company.factoryprogram_web.data;
 
+import com.company.factoryprogram_web.dto.OrderUpdateDto;
 import com.company.factoryprogram_web.dto.RequiredAvailablePartsDto;
 import com.company.factoryprogram_web.dto.RequiredPartsDto;
 import com.company.factoryprogram_web.dto.AvailabilityDto;
@@ -43,29 +44,98 @@ public class DataManager {
                     qty.getPart().getPartName(),
                     qty.getPart().getPartRefNumber(),
                     qty.getQtyRequired(),
-                    qty.getStorage().getAvailQty()));
+                    qty.getStorage().getAvailQty(),
+                    getAvailability(qty)));
         }
+
         return itemsRequiredParts;
     }
 
 
-    public Iterable<AvailabilityDto> checkAvailability(int configurationId) {
+    public String getAvailability(RequiredQuantity requiredQuantity) {
+        int resultAvailQuantity = requiredQuantity.getStorage().getAvailQty();
+        int requiredQ = requiredQuantity.getQtyRequired();
+
+        if (resultAvailQuantity < requiredQ) {
+            return "Not enough";
+        } else {
+            return "Enough";
+        }
+    }
+
+
+//    public int orderParts(Storage storage) {
+//        int storageAvailQty = storage.getAvailQty();
+//        RequiredQuantity rq = new RequiredQuantity();
+//        int requiredQty = rq.getQtyRequired();
+//
+//        if (storageAvailQty >= requiredQty) {
+//            return storageAvailQty - requiredQty;
+//        } else {
+//            return storageAvailQty;
+//        }
+//    }
+
+//    public String getAvailability(Storage storage) {
+//        int resultAvailQuantity = storage.getAvailQty();
+//        int requiredQ = storage.getRequiredQuantity().getQtyRequired();
+//
+//        if (resultAvailQuantity < requiredQ) {
+//            return "Not enough";
+//        } else {
+//            return "Enough";
+//        }
+//    }
+
+    public Iterable<OrderUpdateDto> getUpdateResults(int configurationId) {
+//        var product = repo.getProduct(productId);
+//        var categoryId = product.getCategory().getId();
+
         var configuration = repo.getConfiguration(configurationId);
         var confId = configuration.getId();
 
-        var resultItem = repo.getAvailabilityOfParts(confId);
+//        var limitations = repo.getCategoryLimitations(categoryId);
+//        var testResults = repo.getTestResultItem(productId);
 
-        List<AvailabilityDto> listItems = new ArrayList<>();
+        var requiredQty = repo.getRequiredQuantityForConfiguration(confId);
+        var quantityAfterUpdate = repo.getAvailablePartsAfterUpdate(confId);
 
-        int i = 1;
-        for (var checkAvailability :
-                resultItem) {
-            listItems.add(new AvailabilityDto(checkAvailability, i));
-            ++i;
+        List<OrderUpdateDto> items = new ArrayList<>();
+
+        for (var reqQty :
+                requiredQty) {
+//            items.add(mapPartUpdate(requiredQuantity, updatedQuantity));
         }
-        return listItems;
+
+        return items;
     }
 
+
+
+    private OrderUpdateDto mapPartUpdate(RequiredQuantity requiredQuantity, Iterable<UpdatedPartItem> updatedQuantity) {
+
+        List<UpdatedPartItem> items = new ArrayList<>();
+
+        for (var updatedQty :
+                updatedQuantity) {
+            items.add(updatedQty);
+        }
+
+        var updateItem = items.stream().filter(i -> i.getId() ==
+                requiredQuantity.getPart().getId()).findFirst();
+
+
+        var availQty = 0;
+        var id =0;
+
+        if (updateItem.isPresent()) {
+            var update = updateItem.get();
+            id = update.getId();
+            availQty = update.getAvailQty();
+        }
+
+        return new OrderUpdateDto(id, availQty);
+    }
 
 
 

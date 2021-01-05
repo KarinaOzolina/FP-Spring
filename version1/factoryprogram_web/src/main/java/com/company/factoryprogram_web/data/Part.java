@@ -1,8 +1,6 @@
 package com.company.factoryprogram_web.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -27,7 +25,4 @@ public class Part {
     @Column(name = "price")
     private double partPrice;
 
-//    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-//    @JoinColumn(name="id", referencedColumnName = "part_id")
-//    private Storage storage;
 }
